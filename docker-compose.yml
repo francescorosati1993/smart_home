@@ -1,0 +1,35 @@
+services:
+  postgresql:
+    container_name: postgres_home_db
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    networks:
+      - home_network
+
+  pgadmin:
+    container_name: pgadmin_home
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mail.it
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgresql
+    networks:
+      - home_network
+
+
+networks:
+  home_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

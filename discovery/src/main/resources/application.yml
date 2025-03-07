@@ -1,0 +1,19 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery
+
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true  # Usa l'IP invece del nome host (utile per test locali)
+
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 60000
+
+  client:
+    register-with-eureka: false  # Il Discovery non si registra da solo
+    fetch-registry: false         # Il Discovery non scarica il registro dei servizi
